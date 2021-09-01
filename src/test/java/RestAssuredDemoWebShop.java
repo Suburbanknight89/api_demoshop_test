@@ -14,22 +14,22 @@ public class RestAssuredDemoWebShop {
 	String me = "Nop.customer=fdb7e878-0a75-407d-9792-a1b13c8a71ba;";
 
 	@Test
-	void addToCartWithCookieTest() {
-			Response response =
-					given()
-							.contentType("application/x-www-form-urlencoded; charset=UTF-8")
-							.cookie(me)
-							.body("product_attribute_16_5_4=13&product_attribute_16_6_5=15&" +
-									"product_attribute_16_3_6=19&product_attribute_16_4_7=44&" +
-									"product_attribute_16_8_8=22&addtocart_16.EnteredQuantity=1")
-							.when()
-							.post("http://demowebshop.tricentis.com/addproducttocart/details/16/1")
-							.then()
-							.statusCode(200)
-							.body("success", is(true))
-							.body("message", is("The product has been added to your <a href=\"/cart\">shopping cart</a>"))
-							.extract().response();
-
+	void addToBasketTest() {
+		Response response =
+				given()
+						.contentType("application/x-www-form-urlencoded; charset=UTF-8")
+						.cookie(me)
+						.body("product_attribute_16_5_4=13&product_attribute_16_6_5=15&" +
+								"product_attribute_16_3_6=19&product_attribute_16_4_7=44&" +
+								"product_attribute_16_8_8=22&addtocart_16.EnteredQuantity=1")
+						.when()
+						.post("http://demowebshop.tricentis.com/addproducttocart/details/16/1")
+						.then()
+						.statusCode(200)
+						.body("success", is(true))
+						.body("message", is("The product has been added to your <a href=\"/cart\">shopping " +
+								"cart</a>"))
+						.extract().response();
 
 		String basket = response.path("updatetopcartsectionhtml");
 		String cookieBaskBack = response.cookie("NOP.CUSTOMER");
@@ -38,5 +38,5 @@ public class RestAssuredDemoWebShop {
 		getWebDriver().manage().addCookie(new Cookie("NOP.CUSTOMER", cookieBaskBack));
 		open("http://demowebshop.tricentis.com");
 		assertThat($(".cart-qty").getText()).isEqualTo(basket);
-		}
 	}
+}
