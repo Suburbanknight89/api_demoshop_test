@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class RestAssuredDemoWebShop {
+public class ShopBasketTest {
 
 	String me = "Nop.customer=fdb7e878-0a75-407d-9792-a1b13c8a71ba;";
 
